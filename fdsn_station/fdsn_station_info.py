@@ -5,7 +5,6 @@ from obspy.clients.fdsn import Client
 import argparse
 from pathlib import Path
 
-progname='fdsn_station_search.py';
 here = Path(__file__).resolve().parent
 exec(open(here / "version.py").read())
 
@@ -70,6 +69,9 @@ def dump_output(inv,output,debug):
     file.close() 
 
 def main():
+    '''
+    Main routine to collect commandline arguemnts and to make fdsn client request
+    '''
     parser = argparse.ArgumentParser(prog=progname,
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
             description= '''
