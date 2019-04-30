@@ -1,4 +1,4 @@
-# fdsn_station_info
+## fdsn_station_info ##
 
 Pull station meta data from IRIS FDSN server (default) based on
 1) a time window (required)
@@ -11,7 +11,7 @@ Returns two files:
 2) StationXML file at the response (option) or channel level (default)
 
 
-# Install
+## Install ##
 
 git clone ...  
 
@@ -19,20 +19,20 @@ To install in editable mode
 
 pip3 install -e .  
 
-# Python Dependencies
+## Python Dependencies ##
 
 argparse  
 obspy
 
-# Usage
+## Usage ##
 
 to see help:  
-fdsn_station_info.py --help  
+*fdsn_station_info.py --help*   
 
 To see version:  
-fdsn_station_info.py --version
+*fdsn_station_info.py --version*  
 
 To requestion all network and BH channels:  
-fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.0 --lat 41.0 --radmin 1 --radmax 50 -r -c "BH*" -o test.csv
+*fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.0 --lat 41.0 --radmin 1 --radmax 50 -r -c "BH*" -o test.csv*  
 
 
