@@ -19,17 +19,20 @@ To install in editable mode
 
 pip3 install -e .  
 
-# Dependencies
+# Python Dependencies
 
-Requires
-argparse
+argparse  
 obspy
 
-
-
-# Procedure
-
-
 # Usage
+
+to see help:  
+fdsn_station_info.py --help  
+
+To see version:  
+fdsn_station_info.py --version
+
+To requestion all network and BH channels:  
+fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.0 --lat 41.0 --radmin 1 --radmax 50 -r -c "BH*" -o test.csv
 
 
