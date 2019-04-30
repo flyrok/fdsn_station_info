@@ -33,7 +33,7 @@ def dump_output(inv,output,debug):
     inv.write(xmlout,format="STATIONXML")
 
     msgs=[]
-    msg=f"net,sta   ,loc, chan  , lat      ,  lon       , elev  ,  depth,   sampr, cmpaz,cmpinc,sensor\n"
+    msg=f" N,   sta, loc,   chan,       lat,        lon,   elev,  depth,    sampr,  hang, vang,  sensor\n"
     msgs.append(msg)
 
     if debug: print(msg)
@@ -58,7 +58,7 @@ def dump_output(inv,output,debug):
                 az=chan._azimuth
                 dip=chan._dip
                 sensor=chan.sensor.description
-                msg=f"{net_code:2s}, {sta_code:6s}, {loc:2s}, {code:6s}, {lat:9.6f}, {lon:10.6f}, {elev:6.1f}, {dep:6.1f}, {sampr:8.4f}, {az:5.1f},{dip:4.1f}, {sensor}\n"
+                msg=f"{net_code:2s}, {sta_code:>6s}, {loc:>2s}, {code:>6s}, {lat:>9.6f}, {lon:>10.6f}, {elev:>6.1f}, {dep:>6.1f}, {sampr:>8.4f}, {az:>5.1f},{dip:>4.1f}, {sensor}\n"
 
                 if debug: print(msg)
 
@@ -70,15 +70,18 @@ def dump_output(inv,output,debug):
 
 def main():
     '''
-    Main routine to collect commandline arguemnts and to make fdsn client request
+    Main routine to collect commandline argumnts and to make fdsn client request
     '''
     parser = argparse.ArgumentParser(prog=progname,
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
             description= '''
-            Grab station metadata from IRIS FDSN server for stations that are within a
-            certain search radius of a given lat,lon, and where operating during a
-            particular time frame. It outputs two files: a human readble CSV file
-            and a StationXML file. Th
+            Grab station metadata from IRIS FDSN server for stations that are: 1) within a
+            certain search radius of a given lat,lon, and 2) operating during a
+            particular time frame. It outputs two files: a CSV file
+            and a StationXML file. 
+            ''',
+            epilog='''
+            
             ''')
 
     parser.add_argument("-b","--begin", type=str,
@@ -89,13 +92,14 @@ def main():
         required=True, help="End time in iso-format e.g. 2019001T00:00")
 
     parser.add_argument("-n","--net", type=str,default=None,
-        required=False, help="Net code. Used to narrow search results. ")
+        required=False, help="Net code. Used to narrow search results. Used to narrow search results ")
 
     parser.add_argument("-c","--chan", type=str,default=None,
-        required=False, help="Chan codes, wild cards ok default: *")
+        required=False, help="""Chan codes, defaults to all available. E.g. 
+            ``BH?,HH?,*H*``. Used to narrow search results """)
 
     parser.add_argument("-r","--resp", action="store_true",default=False,
-        required=False, help="set level response otherwise set to channel, default: False")
+        required=False, help="Set to include response in StationXML file.")
 
     parser.add_argument("--lon", type=float,required=True, 
         help="Center longitude for search radius. Decimal degrees.")
@@ -150,9 +154,12 @@ def main():
         print("level: ",level)
     
     client = Client(timeout=240,base_url="http://service.iris.edu")
-    inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
-        latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
-    dump_output(inv,output,debug)
+    try:
+        inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
+            latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
+        dump_output(inv,output,debug)
+    except Exception as e:
+        print(e)
 
 if __name__ == '__main__':
     main()
