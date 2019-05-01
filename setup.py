@@ -15,7 +15,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 PROJECT_NAME="fdsn_station_info"
-exec(open(here+"/fdsn_station/version.py").read())
+exec(open(here+"/src/version.py").read())
 VERSION=__version__
 DESCRIPTION="Search and pull station metadata from FDSN server"
 URL="https://github.com/flyrok/fdsn_station_info"
@@ -45,7 +45,7 @@ setup(
     install_requires=[],  # Optional
     entry_points={  # Optional
         'console_scripts': [
-            'fdsn_station_info.py=fdsn_station.fdsn_station_info:main',
+            'fdsn_station_info.py=src.fdsn_station_info:main',
         ],
     },
     extras_require={  # Optional
