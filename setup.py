@@ -44,7 +44,7 @@ setup(
     keywords=KEYWORDS,  # Optional
     python_requires='>=3.5',
     include_package_data=True,
-    packages=find_packages(),
+    packages=find_packages(exclude=['test']),
     install_requires=[],  # Optional
     entry_points={  # Optional
         'console_scripts': [

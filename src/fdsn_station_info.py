@@ -4,6 +4,7 @@ from obspy import UTCDateTime
 from obspy.clients.fdsn import Client
 import argparse
 from pathlib import Path
+import sys
 
 here = Path(__file__).resolve().parent
 exec(open(here / "version.py").read())
