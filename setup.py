@@ -16,7 +16,7 @@ with open(readme, encoding='utf-8') as f:
     long_description = f.read()
 
 PROJECT_NAME="fdsn_station_info"
-exec(open(here+"/src/version.py").read())
+exec(open(here / "/src/version.py").read())
 VERSION=__version__
 DESCRIPTION="Search and pull station metadata from FDSN server"
 URL="https://github.com/flyrok/fdsn_station_info"
