@@ -1,5 +1,6 @@
-""" Scripts to pull Tradier Data 
-
+""" Wrapper script to ObsPy to search and pull station metadata
+from IRIS FDSN server. Search is based on
+center lat/lon and search radius. 
 
 See:
 https://github.com/flyrok/fdsn_station_info
@@ -16,12 +17,13 @@ with open(readme, encoding='utf-8') as f:
     long_description = f.read()
 
 PROJECT_NAME="fdsn_station_info"
-exec(open(here / "/src/version.py").read())
+exec(open(here / "src/version.py").read())
+
 VERSION=__version__
 DESCRIPTION="Search and pull station metadata from FDSN server"
 URL="https://github.com/flyrok/fdsn_station_info"
 AUTHOR="A Ferris"
-EMAIL="aferris@gmail.com"
+EMAIL="aferris@flyrok.org"
 CLASSIFIERS=['Development Status :: 3 - Alpha',
     'Intended Audience :: Seismic Researchers',
     'Topic :: Obspy/FDSN :: Helper Scripts',
@@ -42,7 +44,7 @@ setup(
     keywords=KEYWORDS,  # Optional
     python_requires='>=3.5',
     include_package_data=True,
-    packages=find_packages(exclude=['examples','doc']),
+    packages=find_packages(),
     install_requires=[],  # Optional
     entry_points={  # Optional
         'console_scripts': [
