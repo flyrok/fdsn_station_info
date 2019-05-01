@@ -2,16 +2,17 @@
 
 
 See:
-https://github.com/flyrok/fdsn_station
+https://github.com/flyrok/fdsn_station_info
 """
 
 from setuptools import setup, find_packages
-from os import path
+from pathlib import Path
 
-here = path.abspath(path.dirname(__file__))
+here = Path(__file__).resolve().parent
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+readme=here / 'README.md'
+with open(readme, encoding='utf-8') as f:
     long_description = f.read()
 
 PROJECT_NAME="fdsn_station_info"
