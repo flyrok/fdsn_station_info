@@ -16,12 +16,13 @@ Returns two files:
 This script has two main uses:
 1) Determining the availability of open-access station/channel data
 for a particular region and time period. This
-information can be fed into another helper script, *fdsn_wf_fetch*,
+information can be fed into another helper script, `fdsn_wf_fetch.py`,
 (https://github.com/flyrok/fdsn_wf_fetch) to pull waveforms. This
-is the main use of the CSV file
+is the common use of the CSV file, which contains the info needed by
+`fdsn_wf_fetch.py`
 2) Saving station metadata (including response) as a StationXML file. This
 can be read into ObsPy Inventory class, e.g. 
-`from obspy import read_inventory`
+`from obspy import read_inventory`  
 `inv = read_inventory("test.staxml")`
 
 
