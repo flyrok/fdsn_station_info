@@ -1,10 +1,11 @@
 ## fdsn_station_info ##
 
-Pull station metadata from IRIS FDSN server (default) based on
+This is a ObsPy wrapper script to pull station metadata from IRIS FDSN
+server (default server) based on:
 1) a time window (required)
 2) a search radius based on a center lat/lon (required)
-3) network code (optional)
-4) channel codes (optional)
+3) network code (optional to refine search)
+4) channel codes (optional to refine search)
 
 Returns two files:
 1) CSV file at the channel level
@@ -13,29 +14,27 @@ Returns two files:
 
 ## Install ##
 
-git clone ...  
+To get the source code
+**git clone ...**  
 
-To install in editable mode  
+To install with pip 
 
-pip3 install -e . 
+**pip3 install . **  
 
-To install to python system 
-pip3 install .  
 
 ## Python Dependencies ##
 
-argparse  
-obspy
+obspy -- without this, nothing will work
 
-## Usage ##
+## Usage/Examples ##
 
-to see help:  
+To see help:  
 **fdsn_station_info.py --help**    
 
 To see version:  
 **fdsn_station_info.py --version**    
 
-To requestion all network and BH channels:  
+To requestion all networks, stations and BH channels:  
 **fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.2 --lat 42.4 --radmin 1 --radmax 50 -r -c "BH?" -o test.csv**    
 
 
