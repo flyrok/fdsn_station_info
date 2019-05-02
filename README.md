@@ -1,6 +1,6 @@
 ## fdsn_station_info ##
 
-This is a ObsPy wrapper script to pull station metadata from IRIS FDSN
+This is an ObsPy wrapper script to pull station metadata from IRIS FDSN
 server (default server) based on:
 1) a time window (required)
 2) a search radius based on a center lat/lon (required)
