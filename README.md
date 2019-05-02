@@ -39,7 +39,9 @@ fdsn_station_info directy, and type
 
 ## Python Dependencies ##
 
-obspy -- without this, nothing will work
+obspy (https://github.com/obspy/obspy/wiki)
+-- without this, nothing will work
+
 
 ## Usage/Examples ##
 
