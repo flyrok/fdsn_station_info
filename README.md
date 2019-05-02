@@ -21,18 +21,19 @@ information can be fed into another helper script, *fdsn_wf_fetch*,
 is the main use of the CSV file
 2) Saving station metadata (including response) as a StationXML file. This
 can be read into ObsPy Inventory class, e.g. 
-`from obspy import read_inventory
-inv = read_inventory("test.staxml")`
+`from obspy import read_inventory`
+`inv = read_inventory("test.staxml")`
 
 
 ## Install ##
 
 To get the source code  
-**git clone ...**  
+`git clone ...`  
 
-To install with pip 
+To install with pip, cd into the
+fdsn_station_info directy, and type
 
-**pip3 install .**  
+`pip3 install .`  
 
 
 ## Python Dependencies ##
@@ -42,12 +43,13 @@ obspy -- without this, nothing will work
 ## Usage/Examples ##
 
 To see help:  
-**fdsn_station_info.py --help**    
+`fdsn_station_info.py --help`    
 
 To see version:  
-**fdsn_station_info.py --version**    
+`fdsn_station_info.py --version`    
 
-To requestion all networks, stations and BH channels:  
-**fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.2 --lat 42.4 --radmin 1 --radmax 50 -r -c "BH?" -o test.csv**    
+To requestion all networks, stations and BH channels for
+a particular region and time period:  
+`fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.2 --lat 42.4 --radmin 1 --radmax 50 -r -c "BH?" -o test.csv`    
 
 
