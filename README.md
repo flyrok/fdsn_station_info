@@ -21,8 +21,8 @@ information can be fed into another helper script, *fdsn_wf_fetch*,
 is the main use of the CSV file
 2) Saving station metadata (including response) as a StationXML file. This
 can be read into ObsPy Inventory class, e.g. 
-`code(from obspy import read_inventory
-inv = read_inventory("/path/to/BW_RJOB.xml")`
+`from obspy import read_inventory
+inv = read_inventory("test.staxml")`
 
 
 ## Install ##
