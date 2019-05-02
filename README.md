@@ -1,8 +1,8 @@
 ## fdsn_station_info ##
 
-This is an ObsPy wrapper script to pull station metadata from IRIS FDSN
+This is an ObsPy wrapper script to help find and  pull station metadata from IRIS FDSN
 server (default server) based on:
-1) a time window (required)
+1) atime window of station operation (required)
 2) a search radius based on a center lat/lon (required)
 3) network code (optional to refine search)
 4) channel codes (optional to refine search)
@@ -28,16 +28,16 @@ can be read into ObsPy Inventory class, e.g.
 
 ## Install ##
 
-Clone source package
+Clone source package  
 `git clone http://github.com/flyrok/fdsn_station_info`
 
-Install with pip after download
+Install with pip after download  
 `pip install .`
 
-Or install directly from github
+Or install directly from github  
 `pip install git+https://github.com/flyrok/fdsn_station_info#egg=fdsn_station_info`
 
-Or just puth the executable on your PATH and call directly
+Or just puth the executable on your PATH and call directly  
 `./fdsn_station_info.py`
 
 
