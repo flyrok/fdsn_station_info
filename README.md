@@ -37,8 +37,8 @@ Install with pip after download
 Or install directly from github
 `pip install git+https://github.com/flyrok/fdsn_station_info#egg=fdsn_station_info`
 
-Or just call the executable on your PATH can call directly
-./fdsn_station_info.py
+Or just puth the executable on your PATH and call directly
+`./fdsn_station_info.py`
 
 
 ## Python Dependencies ##
