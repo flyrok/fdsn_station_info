@@ -44,8 +44,7 @@ setup(
     keywords=KEYWORDS,  # Optional
     python_requires='>=3.5',
     include_package_data=True,
-    packages=find_packages(exclude=['test']),
-    install_requires=[],  # Optional
+    packages=['src'],
     entry_points={  # Optional
         'console_scripts': [
             'fdsn_station_info.py=src.fdsn_station_info:main',
