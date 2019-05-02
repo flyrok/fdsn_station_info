@@ -11,15 +11,28 @@ Returns two files:
 1) CSV file at the channel level
 2) StationXML file at the response (optional) or channel level (default)
 
+### Purpose/Scope ###
+
+This script has two main uses:
+1) Determining the availability of open-access station/channel data
+for a particular region and time period. This
+information can be fed into another helper script, *fdsn_wf_fetch*,
+(https://github.com/flyrok/fdsn_wf_fetch) to pull waveforms. This
+is the main use of the CSV file
+2) Saving station metadata (including response) as a StationXML file. This
+can be read into ObsPy Inventory class, e.g. 
+`code(from obspy import read_inventory
+inv = read_inventory("/path/to/BW_RJOB.xml")`
+
 
 ## Install ##
 
-To get the source code
+To get the source code  
 **git clone ...**  
 
 To install with pip 
 
-**pip3 install . **  
+**pip3 install .**  
 
 
 ## Python Dependencies ##
