@@ -28,17 +28,22 @@ can be read into ObsPy Inventory class, e.g.
 
 ## Install ##
 
-To get the source code  
-`git clone ...`  
+Clone source package
+`git clone http://github.com/flyrok/fdsn_station_info`
 
-To install with pip, cd into the
-fdsn_station_info directy, and type
+Install with pip after download
+`pip install .`
 
-`pip3 install .`  
+Or install directly from github
+`pip install git+https://github.com/flyrok/fdsn_station_info#egg=fdsn_station_info`
+
+Or just call the executable on your PATH can call directly
+./fdsn_station_info.py
 
 
 ## Python Dependencies ##
 
+python>=3.6 (script uses f-strings)  
 obspy (https://github.com/obspy/obspy/wiki)
 -- without this, nothing will work
 
