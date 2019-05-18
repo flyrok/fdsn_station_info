@@ -17,7 +17,7 @@ with open(readme, encoding='utf-8') as f:
     long_description = f.read()
 
 PROJECT_NAME="fdsn_station_info"
-exec(open(here / "src/version.py").read())
+exec(open(here / "fdsn_station_info/version.py").read())
 
 VERSION=__version__
 DESCRIPTION="Search and pull station metadata from FDSN server"
@@ -44,10 +44,10 @@ setup(
     keywords=KEYWORDS,  # Optional
     python_requires='>=3.5',
     include_package_data=True,
-    packages=['src'],
+    packages=['fdsn_station_info'],
     entry_points={  # Optional
         'console_scripts': [
-            'fdsn_station_info.py=src.fdsn_station_info:main',
+            'fdsn_station_info.py=fdsn_station_info.fdsn_station_info:main',
         ],
     },
     extras_require={  # Optional
