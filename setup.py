@@ -42,7 +42,7 @@ setup(
     author_email=EMAIL,  # Optional
     classifiers=CLASSIFIERS ,
     keywords=KEYWORDS,  # Optional
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     include_package_data=True,
     packages=['fdsn_station_info'],
     entry_points={  # Optional
