@@ -47,7 +47,7 @@ setup(
     packages=['fdsn_station_info'],
     entry_points={  # Optional
         'console_scripts': [
-            'fdsn_station_info.py=fdsn_station_info.fdsn_station_info:main',
+            'fdsn_station_info=fdsn_station_info.fdsn_station_info:main',
         ],
     },
     extras_require={  # Optional
