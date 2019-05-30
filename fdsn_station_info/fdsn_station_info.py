@@ -119,7 +119,7 @@ def main():
 
     parser.add_argument("-s","--station", type=str,default=None,
         required=False, help="""Station Codes, defaults to all
-            ``ANMO,PFO``. Used if interested in metadata for particular stations. 
+            ``ANMO,PFO``. Used if interested in metadata for a particular set stations. 
             Multiple stations are comma separated and quoted  """)
 
     parser.add_argument("-c","--chan", type=str,default=None,
