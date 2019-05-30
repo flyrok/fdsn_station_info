@@ -115,7 +115,12 @@ def main():
         required=True, help="End time in iso-format e.g. 2019001T00:00")
 
     parser.add_argument("-n","--net", type=str,default=None,
-        required=False, help="Net code. Used to narrow search results. Used to narrow search results ")
+        required=False, help="Net code. Used to narrow search results. Multiple network are comma separated and quoted.")
+
+    parser.add_argument("-s","--station", type=str,default=None,
+        required=False, help="""Station Codes, defaults to all
+            ``ANMO,PFO``. Used if interested in metadata for particular stations. 
+            Multiple stations are comma separated and quoted  """)
 
     parser.add_argument("-c","--chan", type=str,default=None,
         required=False, help="""Chan codes, defaults to all available. E.g.
@@ -125,16 +130,16 @@ def main():
         required=False, help="Set to include response in StationXML file.")
 
     parser.add_argument("--lon", type=float,required=True,
-        help="Center longitude for search radius. Decimal degrees.")
+        help="Center longitude for search radius. Decimal degrees. Set to -999 to skip distance search")
 
     parser.add_argument("--lat", type=float,required=True,
-        help="Center latitude for search radius. Decimal degrees.")
+        help="Center latitude for search radius. Decimal degrees. Set to -999 to skip distance search")
 
     parser.add_argument("--radmin", type=float,required=True,
-        help="Minimum search radius in km (>0)")
+        help="Minimum search radius in km (>0). Set to 0 to skip distance search")
 
     parser.add_argument("--radmax", type=float,required=True,
-        help="Maximum search radius in km (>radmin)")
+        help="Maximum search radius in km (>radmin). Set to 0 to skip distance search.")
 
     parser.add_argument("-o","--output", type=str,required=False,
         default="sta_info.csv", help="Output filename for CSV. CSV suffix is replaced with .staxml for StationXML format")
@@ -151,6 +156,7 @@ def main():
     endt= UTCDateTime(args.end)
     net=args.net
     chan=args.chan
+    station=args.station
     do_resp=args.resp
     lon=args.lon
     lat=args.lat
@@ -178,12 +184,21 @@ def main():
         print("level: ",level)
 
     client = Client(timeout=240,base_url="http://service.iris.edu")
-    try:
-        inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
-            latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
-        dump_output(inv,output,debug, lon, lat)
-    except Exception as e:
-        print(e)
+    if lat > -999 and lon > -999:
+        try:
+            inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
+                latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
+            dump_output(inv,output,debug, lon, lat)
+        except Exception as e:
+            print(e)
+    else:
+        try:
+            inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,station=station,
+                level=level)
+            dump_output(inv,output,debug, lon, lat)
+        except Exception as e:
+            print(e)
+
 
 if __name__ == '__main__':
     main()
