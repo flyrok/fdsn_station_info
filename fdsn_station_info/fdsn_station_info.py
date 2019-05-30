@@ -61,6 +61,8 @@ def dump_output(inv,output,debug,lon0,lat0):
                 az=chan._azimuth
                 dip=chan._dip
                 sensor=chan.sensor.description
+                if lat0 == -999: lat0=lat
+                if lon0 == -999: lon0=lon
                 dist= latlongdist(lat0,lat,lon0,lon)
                 msg=f"{net_code:2s}, {sta_code:>6s}, {loc:>2s}, {code:>6s}, {lat:>9.6f}, {lon:>10.6f}, {elev:>6.1f}, {dist}, {dep:>6.1f}, {sampr:>8.4f}, {az:>5.1f},{dip:>4.1f}, {sensor}\n"
 
