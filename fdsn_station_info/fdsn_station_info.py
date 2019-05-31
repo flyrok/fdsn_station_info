@@ -96,8 +96,9 @@ def main():
     '''
     Main routine to collect commandline argumnts and to make fdsn client request
     '''
+            #formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     parser = argparse.ArgumentParser(prog=progname,
-            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+            formatter_class=argparse.RawDescriptionHelpFormatter,
             description= '''
             Grab station metadata from IRIS FDSN server for stations that are: 1) within a
             certain search radius of a given lat,lon, and 2) operating during a
@@ -105,6 +106,18 @@ def main():
             and a StationXML file.
             ''',
             epilog='''
+            Examples:
+            pull metadata for station HRV  
+            ``fdsn_station_info -b 2019-01-01 -e 2019-02-01 -s HRV``
+
+            pull metadata for station HRV and only BH? channels
+            ``fdsn_station_info -b 2019-01-01 -e 2019-02-01 -s HRV -c "BH?" ``
+
+            pull metadata for entire IU network
+            ``fdsn_station_info -b 2019-01-01 -e 2019-02-01 -n IU``
+
+            pull metadata for all stations within 100 km of Boston 
+            ``fdsn_station_info -b 2019-01-01 -e 2019-02-01 --lat 42.36 --lon 71.06 --radmax 100.0``
 
             ''')
 
@@ -163,7 +176,7 @@ def main():
     if args.radmax is not None and (args.lat is None or args.lon is None):
         parser.error("--radmax requires --lon, --lat")
     # check if lat/lon set then radmax set
-    if args.lat and arg.radmax is None:
+    if args.lat and args.radmax is None:
         parser.error("--lat --lon requires --radmax") 
     # check if radmax is not set then net or station must be set
     if args.radmax is None and (args.net is None and args.station is None):
