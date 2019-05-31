@@ -35,7 +35,7 @@ Clone source package
 Install with pip after download  
 `pip install .`
 
-Install in editable mode
+Install in editable mode  
 `pip install -e .`
 
 Or install directly from github  
