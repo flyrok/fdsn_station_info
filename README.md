@@ -2,10 +2,11 @@
 
 This is an ObsPy wrapper script to help find and  pull station metadata from IRIS FDSN
 server (default server) based on:
-1) atime window of station operation (required)
-2) a search radius based on a center lat/lon (required)
+1) a time window of station operation (required)
+2) a search radius based on a center lat/lon (not required
 3) network code (optional to refine search)
 4) channel codes (optional to refine search)
+5) station codes
 
 Returns two files:
 1) CSV file at the channel level
@@ -19,11 +20,11 @@ for a particular region and time period. This
 information can be fed into another helper script, `fdsn_wf_fetch.py`,
 (https://github.com/flyrok/fdsn_wf_fetch) to pull waveforms. This
 is the common use of the CSV file, which contains the info needed by
-`fdsn_wf_fetch.py`
+`fdsn_wf_fetch.py`  
 2) Saving station metadata (including response) as a StationXML file. This
-can be read into ObsPy Inventory class for all kinds of things, e.g. 
-`from obspy import read_inventory`  
-`inv = read_inventory("test.staxml")`
+can be read into ObsPy Inventory class for all kinds of things, e.g.   
+`from obspy import read_inventory`    
+`inv = read_inventory("test.staxml")`  
 
 
 ## Install ##
@@ -33,6 +34,9 @@ Clone source package
 
 Install with pip after download  
 `pip install .`
+
+Install in editable mode
+`pip install -e .`
 
 Or install directly from github  
 `pip install git+https://github.com/flyrok/fdsn_station_info#egg=fdsn_station_info`
