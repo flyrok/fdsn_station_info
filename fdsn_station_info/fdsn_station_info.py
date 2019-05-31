@@ -44,7 +44,6 @@ def dump_output(inv,output,debug,lon0,lat0):
     # at the channel level
     for i in range(0,len(inv.networks)): # iter networks
         net=inv.networks[i]
-
         net_code=net._code
         for j in range(0,len(net)): # iter stations
             sta=net[j]
@@ -61,8 +60,8 @@ def dump_output(inv,output,debug,lon0,lat0):
                 az=chan._azimuth
                 dip=chan._dip
                 sensor=chan.sensor.description
-                if lat0 == -999: lat0=lat
-                if lon0 == -999: lon0=lon
+                if lat0 is None : lat0=lat
+                if lon0 is None: lon0=lon
                 dist= latlongdist(lat0,lat,lon0,lon)
                 msg=f"{net_code:2s}, {sta_code:>6s}, {loc:>2s}, {code:>6s}, {lat:>9.6f}, {lon:>10.6f}, {elev:>6.1f}, {dist}, {dep:>6.1f}, {sampr:>8.4f}, {az:>5.1f},{dip:>4.1f}, {sensor}\n"
 
@@ -131,17 +130,17 @@ def main():
     parser.add_argument("-r","--resp", action="store_true",default=False,
         required=False, help="Set to include response in StationXML file.")
 
-    parser.add_argument("--lon", type=float,required=True,
-        help="Center longitude for search radius. Decimal degrees. Set to -999 to skip distance search")
+    parser.add_argument("--lon", type=float, default=None,
+        required=False, help="Center longitude for search radius. Decimal degrees")
 
-    parser.add_argument("--lat", type=float,required=True,
-        help="Center latitude for search radius. Decimal degrees. Set to -999 to skip distance search")
+    parser.add_argument("--lat", type=float, default=None,
+        required=False, help="Center latitude for search radius. Decimal degrees.")
 
-    parser.add_argument("--radmin", type=float,required=True,
-        help="Minimum search radius in km (>0). Set to 0 to skip distance search")
+    parser.add_argument("--radmin", type=float,default=None,
+        required=False, help="Minimum search radius in km (>0).")
 
-    parser.add_argument("--radmax", type=float,required=True,
-        help="Maximum search radius in km (>radmin). Set to 0 to skip distance search.")
+    parser.add_argument("--radmax", type=float, default=None,
+        required=False, help="Maximum search radius in km (>radmin).")
 
     parser.add_argument("-o","--output", type=str,required=False,
         default="sta_info.csv", help="Output filename for CSV. CSV suffix is replaced with .staxml for StationXML format")
@@ -154,6 +153,23 @@ def main():
 
     args = parser.parse_args()
 
+
+    # check if lat set then lon set, vice versa 
+    if args.lat is not None and args.lon is None: 
+        parser.error("--lat requires --lon")
+    if args.lon is not None and args.lat is None: 
+        parser.error("--lon requires --lat")
+    # check if radmax set, then lat/lon set
+    if args.radmax is not None and (args.lat is None or args.lon is None):
+        parser.error("--radmax requires --lon, --lat")
+    # check if lat/lon set then radmax set
+    if args.lat and arg.radmax is None:
+        parser.error("--lat --lon requires --radmax") 
+    # check if radmax is not set then net or station must be set
+    if args.radmax is None and (args.net is None and args.station is None):
+        parser.error("not setting --radmax requires setting either --net or --station")
+
+
     startt= UTCDateTime(args.begin)
     endt= UTCDateTime(args.end)
     net=args.net
@@ -162,8 +178,10 @@ def main():
     do_resp=args.resp
     lon=args.lon
     lat=args.lat
-    radmin=args.radmin/111.195
-    radmax=args.radmax/111.195
+    radmin=args.radmin
+    radmax=args.radmax
+    if radmin: radmin=radmin/111.195
+    if radmax: radmax=radmax/111.195
     output=args.output
     debug=args.verbose
 
@@ -179,6 +197,7 @@ def main():
         print("end: ",endt)
         print("net: ",net)
         print("chan: ",chan)
+        print("station: ",station)
         print("lon:",lon)
         print("lat: ",lat)
         print("radmin: ",radmin)
@@ -186,21 +205,24 @@ def main():
         print("level: ",level)
 
     client = Client(timeout=240,base_url="http://service.iris.edu")
-    if lat > -999 and lon > -999:
+    if radmax is None:
+        if debug > 0:
+            print("First try")
         try:
             inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
-                latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
+                station=station,level=level)
             dump_output(inv,output,debug, lon, lat)
         except Exception as e:
-            print(e)
-    else:
+            print("get_stations fail:",e)
+    elif radmax:
+        if debug > 0:
+            print("Second try")
         try:
-            inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,station=station,
-                level=level)
+            inv=client.get_stations(starttime=startt,endtime=endt,network=net,channel=chan,
+                station=station,latitude=lat,longitude=lon,minradius=radmin,maxradius=radmax,level=level)
             dump_output(inv,output,debug, lon, lat)
         except Exception as e:
-            print(e)
-
+            print("get_stations fail:",e)
 
 if __name__ == '__main__':
     main()
