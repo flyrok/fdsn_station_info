@@ -60,4 +60,16 @@ To requestion all networks, stations and BH channels for
 a particular region and time period:  
 `fdsn_station_info.py -b 2019001T00:00 -e 2019100T00:00 --lon -71.2 --lat 42.4 --radmin 1 --radmax 50 -r -c "BH?" -o test.csv`    
 
+pull metadata for station HRV  
+`fdsn_station_info -b 2019-01-01 -e 2019-02-01 -s HRV`
+
+pull metadata for station HRV and only BH? channels  
+`fdsn_station_info -b 2019-01-01 -e 2019-02-01 -s HRV -c "BH?" `
+
+pull metadata for entire IU network  
+`fdsn_station_info -b 2019-01-01 -e 2019-02-01 -n IU`
+
+pull metadata for all stations within 100 km of Boston  
+`fdsn_station_info -b 2019-01-01 -e 2019-02-01 --lat 42.36 --lon 71.06 --radmax 100.0`
+
 
